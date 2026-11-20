@@ -1,7 +1,12 @@
-const links = [
+import type {Link} from "../data"
+
+const links: Link[] = [
+  { label: "About", href: "#about" },
+  { label: "Education", href: "#education" },
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
   { label: "Competitions", href: "#competitions" },
+  { label: "Skills", href: "#skills" }
 ]
 
 export function Navbar() {
