@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #faf8f4;
+  --color-ink: #1f1a17;
+  --color-muted: #6b625b;
+  --color-line: #e7e1d8;
+  --color-accent: #7a4a2b;      /* the brown */
+  --color-tag: #f1ebe3;
+
+  --font-serif: "Newsreader", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+html { scroll-behavior: smooth; }
+body { @apply bg-paper text-ink font-sans; }
