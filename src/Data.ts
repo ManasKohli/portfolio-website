@@ -1,5 +1,7 @@
 export type Link = { label: string; href: string }
 
+export type HeroLink = { label: string; href: string; icon: IconType }
+
 export type Profile = {
   name: string
   role: string            // "Software Developer"

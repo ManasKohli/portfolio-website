@@ -15,7 +15,7 @@ export function Navbar() {
             <nav className="mx-auto flex max-w-3xl items-center justify-between
                   rounded-full border border-line bg-paper/70 px-6 py-3
                   shadow-sm backdrop-blur-md">
-                 <a href="#" className="font-serif text-lg">Manas Kohli</a>
+                 <a href="#" className="font-serif text-lg">MK</a>
 
                     <div className="flex items-center gap-6">
                         {links.map((link) => (
