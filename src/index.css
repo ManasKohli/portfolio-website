@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --color-paper: #faf8f4;
-  --color-ink: #1f1a17;
+  --color-paper: #fbf9f5;
+  --color-ink: #2a1d15;         /* dark brown-black for headings */
   --color-muted: #6b625b;
   --color-line: #e7e1d8;
   --color-accent: #7a4a2b;      /* the brown */
@@ -14,4 +14,4 @@
 }
 
 html { scroll-behavior: smooth; }
-body { @apply bg-paper text-ink font-sans; }
+body { @apply bg-paper text-ink font-sans antialiased; }
