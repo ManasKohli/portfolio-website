@@ -4,9 +4,9 @@ import type { HeroLink } from "../data"
 import { Section } from "./Section"
 
 const heroLinks: HeroLink[] = [
-  { label: "GitHub", href: "https://github.com/...", icon: FiGithub },
-  { label: "LinkedIn", href: "https://linkedin.com/in/...", icon: FiLinkedin },
-  { label: "Email", href: "mailto:you@example.com", icon: FiMail },
+  { label: "GitHub", href: "https://github.com/ManasKohli", icon: FiGithub },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/manas-kohli/", icon: FiLinkedin },
+  { label: "Email", href: "mailto:manaskohli6@gmail.com", icon: FiMail },
 ]
 
 export function Hero() {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { FiArrowUpRight, FiMenu, FiX } from "react-icons/fi"
 import type { Link } from "../data"
 
@@ -12,32 +12,65 @@ const links: Link[] = [
 ]
 
 // Highlights the nav link for whichever section is currently in view.
+// Returns the active href plus `select`, which nav links call on click.
 function useActiveSection() {
   const [active, setActive] = useState("#about")
+  // While a nav click's smooth scroll is running, scroll position must not
+  // override the clicked link (e.g. Projects can't reach the top of a tall
+  // window, so the page ends at the bottom where Competitions would win).
+  const locked = useRef(false)
+  const releaseTimer = useRef<number | undefined>(undefined)
+
+  const scheduleRelease = () => {
+    window.clearTimeout(releaseTimer.current)
+    releaseTimer.current = window.setTimeout(() => (locked.current = false), 150)
+  }
+
+  const select = (href: string) => {
+    setActive(href)
+    locked.current = true
+    scheduleRelease()
+  }
 
   useEffect(() => {
     const sections = links
       .map((l) => document.querySelector(l.href))
       .filter((el): el is Element => el !== null)
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) setActive(`#${entry.target.id}`)
-        }
-      },
-      { rootMargin: "-40% 0px -55% 0px" },
-    )
+    // Active = the last section whose top has scrolled up to just below the
+    // sticky navbar (sections land at scroll-mt-24 = 96px). At the very
+    // bottom of the page, the last section wins, since it may never get there.
+    const update = () => {
+      const atBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2
+      let current = sections[0]
+      for (const s of sections) {
+        if (s.getBoundingClientRect().top <= 120) current = s
+      }
+      if (atBottom) current = sections.at(-1) ?? current
+      if (current) setActive(`#${current.id}`)
+    }
 
-    sections.forEach((s) => observer.observe(s))
-    return () => observer.disconnect()
+    const onScroll = () => {
+      if (locked.current) scheduleRelease() // keep the lock until scrolling stops
+      else update()
+    }
+
+    update()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    window.addEventListener("resize", update)
+    return () => {
+      window.removeEventListener("scroll", onScroll)
+      window.removeEventListener("resize", update)
+      window.clearTimeout(releaseTimer.current)
+    }
   }, [])
 
-  return active
+  return { active, select }
 }
 
 export function Navbar() {
-  const active = useActiveSection()
+  const { active, select } = useActiveSection()
   const [open, setOpen] = useState(false)
 
   // Close the mobile menu on Escape or when the window grows to desktop width.
@@ -69,6 +102,7 @@ export function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
+                onClick={() => select(link.href)}
                 className={`relative py-5 font-serif text-[15px] transition-colors hover:text-ink ${
                   isActive ? "text-ink" : "text-muted"
                 }`}
@@ -123,7 +157,10 @@ export function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
-                  onClick={() => setOpen(false)}
+                  onClick={() => {
+                    select(link.href)
+                    setOpen(false)
+                  }}
                   tabIndex={open ? 0 : -1}
                   className={`flex items-center gap-3 border-b border-line py-3 font-serif text-lg last:border-b-0 ${
                     isActive ? "text-ink" : "text-muted"
