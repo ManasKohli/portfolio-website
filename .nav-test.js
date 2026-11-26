@@ -10,7 +10,6 @@
       if (active() !== a.textContent) { fails++; out.push(`FAIL clicked ${a.textContent} -> ${active()}`); }
     }
   }
-  // manual scrolling: wheel-style scroll to each section top, then to bottom
   for (const a of navLinks) {
     const el = document.querySelector(a.getAttribute('href'));
     window.scrollTo({ top: el.offsetTop - 96, behavior: 'instant' }); await sleep(300);
