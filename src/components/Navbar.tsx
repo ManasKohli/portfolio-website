@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { FiArrowUpRight, FiMenu, FiX } from "react-icons/fi"
-import type { Link } from "../data"
+import { resumePdf, type Link } from "../data"
 
 const links: Link[] = [
   { label: "About", href: "#about" },
@@ -8,7 +8,6 @@ const links: Link[] = [
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
   { label: "Competitions", href: "#competitions" },
-  { label: "Research", href: "#research" },
 ]
 
 // Highlights the nav link for whichever section is currently in view.
@@ -120,7 +119,7 @@ export function Navbar() {
 
         <div className="flex items-center gap-2">
           <a
-            href="/resume.pdf"
+            href={resumePdf}
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-1 rounded-md bg-accent px-4 py-2 font-serif text-sm text-white

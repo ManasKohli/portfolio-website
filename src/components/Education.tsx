@@ -18,6 +18,13 @@ export function Education() {
             <div className="flex-1">
               <h3 className="text-[17px] font-semibold text-ink">{edu.school}</h3>
               <p className="text-sm text-muted">{edu.degree}</p>
+              {(edu.gpa || !!edu.honors?.length) && (
+                <p className="text-sm text-muted">
+                  {[edu.gpa && `GPA: ${edu.gpa}`, ...(edu.honors ?? [])]
+                    .filter(Boolean)
+                    .join(" · ")}
+                </p>
+              )}
             </div>
 
             <p className="font-mono text-sm tracking-wide whitespace-nowrap text-muted">

@@ -1,8 +1,11 @@
 import type { IconType } from "react-icons"
-import { LuChartSpline, LuUtensils } from "react-icons/lu"
+import { LuChartSpline, LuGamepad2, LuUtensils } from "react-icons/lu"
 import { PiFlagCheckered } from "react-icons/pi"
 import uoftLogo from "./assets/uoft.png"
 import quantifiReport from "./assets/quantifi-2026.pdf"
+import resumePdf from "./assets/mk-resume.pdf"
+
+export { resumePdf }
 
 export type Link = { label: string; href: string }
 
@@ -20,6 +23,8 @@ export type Education = {
   school: string
   degree: string
   period: string
+  gpa?: string
+  honors?: string[]
   logo?: string
 }
 
@@ -56,6 +61,8 @@ export const education: Education[] = [
     school: "University of Toronto",
     degree: "B.Sc. Computer Science, Minor in Mathematics & Statistics",
     period: "2025 – 2029",
+    gpa: "3.8",
+    honors: ["Dean's List Scholar"],
     logo: uoftLogo,
   },
 ]
@@ -72,6 +79,8 @@ export const experience: Experience[] = [
     role: "Infrastructure Lead",
     company: "University of Toronto Decision Systems",
     period: "Oct 2026 – Present",
+    summary:
+      "Leading backend and infrastructure for the club's quantitative research projects.",
   },
   {
     role: "Software Engineering Intern",
@@ -83,6 +92,14 @@ export const experience: Experience[] = [
 ]
 
 export const projects: Project[] = [
+  {
+    name: "UofT Krillion",
+    description:
+      "Trivia game for UofT students inspired by Krillion, with over 3,000 players. Next.js frontend and FastAPI backend on PostgreSQL, deployed via Cloud Run.",
+    tags: ["Next.js", "FastAPI", "PostgreSQL", "GCP"],
+    icon: LuGamepad2,
+    href: "https://www.uoftkrillion.io/",
+  },
   {
     name: "F1 Strategist",
     description:

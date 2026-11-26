@@ -1,10 +1,11 @@
 import { FiFileText, FiArrowUpRight } from "react-icons/fi"
+import { resumePdf } from "../data"
 
 // A tilted "paper stack" preview of the résumé that links to the PDF.
 export function ResumeCard() {
   return (
     <a
-      href="/resume.pdf"
+      href={resumePdf}
       target="_blank"
       rel="noreferrer"
       aria-label="View full résumé"
